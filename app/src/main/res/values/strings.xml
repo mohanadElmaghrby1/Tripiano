@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Tripiano</string>
+    <string name="mail">Email</string>
+    <string name="title_pasttrips">Past Trips</string>
+    <string name="title_canceled_trips">Canceled Trips</string>
+    <string name="title_comming_trips">Coming Tips</string>
+
+
+    <!--    backendless -->
+    <string name="backendless_APPLICATION_ID">C8807460-4245-BC9A-FF4B-C5D05ECD1900</string>
+    <string name="backendless_API_KEY">9DD751E4-38C4-413A-9EFE-903C4EB05791</string>
+    <string name="backendless_SERVER_URL">https://api.backendless.com</string>
+    <string name="retry">Retry</string>
+    <string name="please_retry">please retry</string>
+    <string name="empty_screen">Empty Screen</string>
+    <string name="description">description</string>
+
 </resources>
