@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_past_trips"
+        android:icon="@drawable/ic_city"
+        android:title="@string/title_pasttrips" />
+
+    <item
+        android:id="@+id/navigation_coming_trips"
+        android:icon="@drawable/ic_camera"
+        android:title="@string/title_comming_trips" />
+
+    <item
+        android:id="@+id/navigation_canceled_trips"
+        android:icon="@drawable/ic_mail"
+        android:title="@string/title_canceled_trips" />
+
+
+</menu>
