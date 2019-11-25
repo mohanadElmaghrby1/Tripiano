@@ -1,5 +1,6 @@
 package com.mohannad.tripiano.ui.trips.addTrip;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
@@ -14,6 +15,7 @@ import com.backendless.Backendless;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.google.android.gms.common.util.DataUtils;
+import com.google.android.gms.maps.model.LatLng;
 import com.mohannad.tripiano.MainActivity;
 import com.mohannad.tripiano.R;
 import com.mohannad.tripiano.data.model.Trip;
@@ -27,6 +29,9 @@ public class AddTripActivity extends AppCompatActivity {
 
 //    AddTripActivityBinding binding;
     ActivityAddTripBinding binding;
+    private static int MAP_REQUEST_CODE=10;
+    private LatLng newLocation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,10 @@ public class AddTripActivity extends AppCompatActivity {
         String datetime = binding.etTripDatetime.getText().toString();
         Trip trip=new Trip();
         trip.setName(name);
+        if (newLocation!=null){
+            trip.setLat(newLocation.latitude+"");
+            trip.setLng(newLocation.longitude+"");
+        }
         trip.setDatetime(datetime);
         trip.setStatus(0);
         trip.setDescription(description);
@@ -106,6 +115,18 @@ public class AddTripActivity extends AppCompatActivity {
     }
 
     public void openMap(View view) {
-        startActivity(new Intent(this, MapsActivity.class));
+        startActivityForResult(new Intent(this, MapsActivity.class) ,MAP_REQUEST_CODE );
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == MAP_REQUEST_CODE && resultCode==RESULT_OK){
+            newLocation = (LatLng) data.getExtras().get("newlocation");
+            String locationName = data.getStringExtra("locationname");
+            binding.etLocationMap.setText(locationName);
+        }
     }
 }
