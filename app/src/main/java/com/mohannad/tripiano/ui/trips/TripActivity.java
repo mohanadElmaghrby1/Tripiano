@@ -53,7 +53,9 @@ public class TripActivity extends AppCompatActivity {
                 return false;
             }
         });
+        binding.bottomNavigationView2.setSelectedItemId(R.id.navigation_coming_trips);
     }
+
 
     private void loadFragment(Fragment fragment) {
         // load fragment
