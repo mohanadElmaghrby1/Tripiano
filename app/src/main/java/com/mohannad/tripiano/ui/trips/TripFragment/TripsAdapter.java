@@ -25,6 +25,7 @@ public class TripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     private Context mContext;
     private List<Trip> data;
+    private boolean updated=false;
 //    private TripCallBack callBack;
 
 //    public TripsAdapter(Context context , TripCallBack callBack) {
@@ -39,6 +40,7 @@ public class TripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     public void updateData(List<Trip> data) {
         this.data = data;
+        updated=true;
         notifyDataSetChanged();
     }
 
@@ -81,6 +83,9 @@ public class TripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public int getItemCount() {
+        if(!updated)
+            return 0;
+
         if (data == null)
             return 1;
 

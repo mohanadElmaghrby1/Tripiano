@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,6 +42,7 @@ public class TripFragment extends Fragment {
     public static final int DONE = 1;
     public static final int CANCELED = 2;
     RecyclerView tripsRecyclerView;
+    private ContentLoadingProgressBar progressBar;
     private int status;
 
     TripsAdapter tripsAdapter ;
@@ -58,6 +60,7 @@ public class TripFragment extends Fragment {
         tripsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         tripsAdapter = new TripsAdapter(getContext());
         tripsRecyclerView.setAdapter(tripsAdapter);
+        progressBar= view.findViewById(R.id.progress_bar);
 
         return view;
     }
@@ -71,68 +74,24 @@ public class TripFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         DataQueryBuilder queryBuilder = DataQueryBuilder.create();
+        progressBar.setVisibility(View.VISIBLE);
         // set where clause
-        queryBuilder.setWhereClause("status = "+(status==0?0:status==1?1:2));
+        queryBuilder.setWhereClause("status = "+(status));
 
         Backendless.Data.of(Trip.class).find(queryBuilder, new AsyncCallback<List<Trip>>(){
             @Override
             public void handleResponse( List<Trip> foundTrips ){
-                for (int i = 0; i < foundTrips.size(); i++) {
-                    tripsAdapter.updateData(foundTrips);
-                    Toast.makeText(getContext() ,foundTrips.get(i).getName() , Toast.LENGTH_LONG).show();
-                }
+                progressBar.setVisibility(View.INVISIBLE);
+                tripsAdapter.updateData(foundTrips);
+
             }
             @Override
             public void handleFault( BackendlessFault fault ){
                 Toast.makeText(getContext() ,fault.getMessage(), Toast.LENGTH_LONG).show();
                 Log.e("loading error status "+status,fault.getDetail());
-
+                progressBar.setVisibility(View.INVISIBLE);
                 // an error has occurred, the error code can be retrieved with fault.getCode()
             }
         });
-
-//        Trip trip = new Trip();
-//        trip.setLat("65");
-//        trip.setLng("65");
-//        trip.setName("abc");
-//
-//        trip.setDescription("msh mhma");
-//
-//        Date currentTime = Calendar.getInstance().getTime();
-////        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM yyyy HH:mm");
-//        String dateString = simpleDateFormat.format(currentTime);
-//        trip.setDatetime(dateString);
-//
-//
-////
-////        String oldstring = "2011-01-18 00:00:00.0";
-////        try {
-////
-////            Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(oldstring);
-////            trip.setDatetime(oldstring);
-////
-////
-////        } catch (ParseException e) {
-////            e.printStackTrace();
-////        }
-//
-//
-//        //coming
-//        trip.setStatus(1);
-//        Backendless.Data.save(trip, new AsyncCallback<Trip>() {
-//            @Override
-//            public void handleResponse(Trip response) {
-//                Log.i("sssssssssss", response.getObjectId());
-//
-//            }
-//
-//            @Override
-//            public void handleFault(BackendlessFault fault) {
-//                Log.i("ssssssssssss", fault.getDetail());
-//
-//            }
-//        });
-
     }
 }
