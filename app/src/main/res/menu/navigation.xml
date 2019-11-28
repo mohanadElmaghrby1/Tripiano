@@ -11,10 +11,5 @@
         android:icon="@drawable/ic_camera"
         android:title="@string/title_comming_trips" />
 
-    <item
-        android:id="@+id/navigation_canceled_trips"
-        android:icon="@drawable/ic_mail"
-        android:title="@string/title_canceled_trips" />
-
 
 </menu>

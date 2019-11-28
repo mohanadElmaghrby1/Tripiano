@@ -11,8 +11,9 @@ import com.google.gson.Gson;
 public class SharedPrefUtils {
     final static String SHARED_PREF_NAME = "shared_pref";
 
-    final static String USER_DATA = "any_advertisement_user_data";
-    final static String REMIND_ME = "remind_me";
+    public final static String USER_EMAIL = "email";
+    public final static String USER_PASS = "pass";
+    public final static String REMIND_ME = "remind_me";
 
 
 
@@ -27,14 +28,15 @@ public class SharedPrefUtils {
 
 
 
-//    public void setUserDate(User userModel) {
-//        Gson gson = new Gson();
-//        SharedPreferences sharedPreferences = mContext.getSharedPreferences(SHARED_PREF_NAME, 0);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.putString(USER_DATA, gson.toJson(userModel));
-//        editor.commit();
-//        editor.apply();
-//    }
+    public void setUserDate(String email ,String pass) {
+        Gson gson = new Gson();
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences(SHARED_PREF_NAME, 0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(USER_EMAIL, email);
+        editor.putString(USER_PASS , pass);
+        editor.commit();
+        editor.apply();
+    }
 
 
     public void setRemindMe(int num) {
@@ -56,13 +58,10 @@ public class SharedPrefUtils {
         return num;
     }
 
-//    public User getUserDate() {
-//        SharedPreferences sharedPreferences = mContext.getSharedPreferences(SHARED_PREF_NAME, 0);
-//        Gson gson = new Gson();
-//        return gson.fromJson(sharedPreferences.getString(USER_DATA, null), User.class);
-//    }
-
-
+    public String getUserData(String key) {
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences(SHARED_PREF_NAME, 0);
+        return sharedPreferences.getString(key, null);
+    }
 
 
 

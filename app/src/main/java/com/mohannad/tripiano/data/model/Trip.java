@@ -1,6 +1,8 @@
 package com.mohannad.tripiano.data.model;
 
-public class Trip {
+import java.io.Serializable;
+
+public class Trip implements Serializable {
     private String name;
     private String datetime;
     private String description;

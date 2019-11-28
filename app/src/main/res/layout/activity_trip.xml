@@ -17,6 +17,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/fragment_container"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_margin="8dp"
+            android:src="@drawable/ic_add"
             android:onClick="openAddTripActivity" />
 
         <FrameLayout

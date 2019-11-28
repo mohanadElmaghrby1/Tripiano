@@ -33,9 +33,11 @@ public class TripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 //        this.callBack=callBack;
 //    }
 
+    private MapCallable mapCallable;
 
-    public TripsAdapter(Context mContext) {
+    public TripsAdapter(Context mContext , MapCallable mapCallable) {
         this.mContext = mContext;
+        this.mapCallable=mapCallable;
     }
 
     public void updateData(List<Trip> data) {
@@ -63,12 +65,26 @@ public class TripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         if (holder.getItemViewType()==VIEW_TYPE_NORMAL){
-            Trip Trip = data.get(position);
+            final Trip trip = data.get(position);
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mapCallable.onLocationClick(trip.getLat() , trip.getLng());
+                }
+            });
+
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    mapCallable.onLongClick(trip ,v);
+                    return true;
+                }
+            });
             TripViewHolder tripViewHolder =(TripViewHolder)holder;
-            tripViewHolder.name.setText(Trip.getName());
-            tripViewHolder.dateTime.setText(Trip.getName());
-            tripViewHolder.locationName.setText(Trip.getName());
-            tripViewHolder.description.setText(Trip.getName());
+            tripViewHolder.name.setText(trip.getName());
+            tripViewHolder.dateTime.setText(trip.getDatetime());
+            tripViewHolder.locationName.setText(trip.getName());
+            tripViewHolder.description.setText(trip.getName());
         }else {
             EmptyViewHolder emptyViewHolder =(EmptyViewHolder)holder;
             emptyViewHolder.btnRetry.setOnClickListener(new View.OnClickListener() {

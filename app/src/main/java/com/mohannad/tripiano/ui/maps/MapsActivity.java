@@ -97,7 +97,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        Toast.makeText(getApplicationContext() , "اضغط طويلا لاختيار الموقع", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext() , "press long for selecting place", Toast.LENGTH_LONG).show();
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
@@ -125,8 +125,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng marker = place.getLatLng();
         mMap.addMarker(new MarkerOptions().position(marker).title(place.getName()+""));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker,80));
-
-
     }
 
 

@@ -11,6 +11,7 @@ import android.widget.TimePicker;
 
 import androidx.fragment.app.DialogFragment;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -42,5 +43,15 @@ public class TimePickerFragment extends DialogFragment
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         dataAndTime.timeSelected(hourOfDay+":"+minute);
+    }
+
+
+    public static long dataTimeInMillis(String dateAndTime) throws ParseException {
+        //parsing date into mills
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM yyyy HH:mm");
+        Date date = dateFormat.parse(dateAndTime);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.getTimeInMillis();
     }
 }

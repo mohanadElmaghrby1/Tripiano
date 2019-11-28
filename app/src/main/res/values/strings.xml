@@ -14,5 +14,7 @@
     <string name="please_retry">please retry</string>
     <string name="empty_screen">Empty Screen</string>
     <string name="description">description</string>
+    <string name="action_delete">delete</string>
+    <string name="action_logout">Logout</string>
 
 </resources>
